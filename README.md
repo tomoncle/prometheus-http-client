@@ -161,4 +161,4 @@ $ cd prometheus-http-client && sudo python setup.py install
 
 # [Welcome pull request of other exporter](https://github.com/tomoncle/prometheus-client)
 
-[travis]: https://travis-ci.org/tomoncle/prometheus-client
+[travis]: https://travis-ci.org/tomoncle/prometheus-http-client
