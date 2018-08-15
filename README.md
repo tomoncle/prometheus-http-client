@@ -1,5 +1,5 @@
 # Prometheus-http-client [![Build Status](https://travis-ci.org/tomoncle/prometheus-http-client.svg?branch=master)][travis]
-> Prometheus service http client
+> Prometheus service http client, convenient query client，asy to expand custom functions．
 
 * More simple expansion: use wrapper Automatic selection query mode, there is no need for any implementation.
   ```python
@@ -29,12 +29,12 @@
 
 * Rich query selector: Support multi label query.
   * Paramters:
-    * graph: True/False                                        , default False
-    * start: timestamp                                         , if graph is True, necessary
-    * end  : timestamp                                         , if graph is True, necessary
-    * step : int (graph point step size)                       , default None
-    * time : timestamp                                         , default time.time()
-    * filter: {'instance':'127.0.0.1', 'label':'go lang', ...}  , default None
+    * `graph`: True/False                                        , default False
+    * `start`: timestamp                                         , if graph is True, necessary
+    * `end`  : timestamp                                         , if graph is True, necessary
+    * `step` : int (graph point step size)                       , default None
+    * `time` : timestamp                                         , default time.time()
+    * `filter`: {'instance':'127.0.0.1', 'label':'go lang', ...}  , default None
   * return json data.
   * examples :
     ```python
@@ -63,17 +63,9 @@ $ cd prometheus-http-client && sudo python setup.py install
 * pip: `$ pip install prometheus-http-client`
 
 ## Config
-* default config : 'http://localhost:9090'
-
-* change config  :
-  ```bash
-  $ export PROMETHEUS_URL='http://192.168.1.2:9090'
-  ```
-
-* auth config    :
-  ```bash
-  $ export PROMETHEUS_HEAD='{"Cookie": "123456"}'
-  ```
+* default config : `http://localhost:9090`
+* change config  : `$ export PROMETHEUS_URL='http://192.168.1.2:9090'`
+* auth config    : `$ export PROMETHEUS_HEAD='{"Cookie": "123456"}'`
 
 ## Query
 ### Prometheus
@@ -99,7 +91,6 @@ u'{"status":"success","data":{"resultType":"vector","result":[{"metric":{"instan
   ```python
   from prometheus_http_client import Exporter
 
-
   print(Exporter().go_gc_duration_seconds())
   ```
 
@@ -110,13 +101,12 @@ u'{"status":"success","data":{"resultType":"vector","result":[{"metric":{"instan
 
 ### node_exporter
 > Exporter for machine metrics https://prometheus.io/
+
 * code :
   ```python
   from prometheus_http_client import NodeExporter
 
-  # default metric
   node_exporter = NodeExporter()
-
   # print(node_exporter.node_uname_info())
   print(node_exporter.node_cpu_rate(filter={'instance': '127.0.0.1:9100'}))
   ````
@@ -171,6 +161,7 @@ u'{"status":"success","data":{"resultType":"vector","result":[{"metric":{"instan
   {"status":"success","data":{"resultType":"vector","result":[{"metric":{"__name__":"memcached_commands_total","command":"cas","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"badval"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"cas","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"hit"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"cas","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"miss"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"decr","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"hit"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"decr","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"miss"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"delete","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"hit"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"delete","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"miss"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"flush","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"hit"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"get","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"hit"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"get","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"miss"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"incr","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"hit"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"incr","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"miss"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"set","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"hit"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"touch","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"hit"},"value":[1533735286.809,"0"]},{"metric":{"__name__":"memcached_commands_total","command":"touch","instance":"127.0.0.1:9150","job":"memcached","mysql_version":"5.7","status":"miss"},"value":[1533735286.809,"0"]}]}}
   ```
 
-# [Welcome pull request of other exporter](https://github.com/tomoncle/prometheus-http-client)
+
+### [Welcome pull request of other exporter](https://github.com/tomoncle/prometheus-http-client)
 
 [travis]: https://travis-ci.org/tomoncle/prometheus-http-client
