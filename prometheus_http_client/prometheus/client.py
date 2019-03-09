@@ -26,11 +26,14 @@ if urllib3:
 
 
 class Prometheus(object):
-    def __init__(self):
-        self.url = os.getenv('PROMETHEUS_URL', 'http://localhost:9090')
-        self.headers = os.getenv('PROMETHEUS_HEAD', None)
-        if self.headers:
-            self.headers = json.loads(self.headers)
+    def __init__(self, url=None, headers=None):
+        self.url = url or os.getenv('PROMETHEUS_URL', 'http://localhost:9090')
+        if headers:
+            self.headers = headers
+        else:
+            self.headers = os.getenv('PROMETHEUS_HEAD', None)
+            if self.headers:
+                self.headers = json.loads(self.headers)
         self.step_size = 257.142857143
 
     def get_step(self, start, end):
