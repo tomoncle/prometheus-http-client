@@ -68,6 +68,20 @@ def _s(self, matches):
             url += 'match[]={}'.format(m)
     return requests.get(url=url, headers=self.headers).text
 
+def _r(self, **kwargs):
+    """ type: alert|record
+        no type defaults to alert
+    """
+    return requests.get(
+        url=self.url.rstrip('/') + '/api/v1/rules',
+        params={
+            'type': kwargs.get('type')},
+        headers=self.headers).text
+
+def _a(self):
+    return requests.get(
+        url=self.url.rstrip('/') + '/api/v1/alerts',
+        headers=self.headers).text
 
 def _am(self):
     return requests.get(
@@ -87,6 +101,8 @@ _dic = {
     'query_rang': _qr,
     'targets': _t,
     'series': _s,
+    'rules':_r,
+    'alerts':_a,
     'alert_managers': _am,
     'label_values': _lv
 }
