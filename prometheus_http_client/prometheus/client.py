@@ -102,6 +102,9 @@ def _build_params(dic):
     build params {...}
     :param dic: dict
     :return:  str
+    Examples:
+        {"bar":"foo", "lab":"this"} --> {bar="foo", lab="this"}
+        {"bar":("!=",foo",), "lab":"this"} --> {bar!="foo", lab="this"}
     """
     s = ''
     if not dic:
@@ -109,13 +112,13 @@ def _build_params(dic):
     if not isinstance(dic, dict):
         raise AssertionError("params must be dict type.")
     for k, v in dic.items():
-        #if the value is a tuple then the caller likes to give also the operator like !=, =~ and so on.
-        #else the caller just likes label equals value filter
+        # if the value is a tuple then the caller likes to give also the operator like !=, =~ and so on.
+        # else the caller just likes label equals value filter
         if isinstance(v, tuple):
             s += '{}{}"{}", '.format(k,v[0],v[1])
         else:
             s += '{}="{}", '.format(k, v)
-    #remove last comma
+    # remove last comma
     s = str(s[:-2])
     return '{%s}' % s
 
