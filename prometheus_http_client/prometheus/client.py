@@ -81,6 +81,19 @@ class Prometheus(object):
         # Prometheus().label_values('job')
         pass
 
+    def rules(self, **kwargs):
+        # Querying the rules
+        #
+        # Prometheus().rules(type="alert")
+        # type: alert|record
+        pass
+
+    def alerts(self):
+        # Queriying for active alerts
+        #
+        # Prometheus().alerts()
+        pass
+
     def alert_managers(self):
         # Prometheus alertmanager discovery
         #
