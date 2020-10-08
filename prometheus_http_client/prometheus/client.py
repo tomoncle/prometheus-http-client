@@ -24,9 +24,15 @@ except ImportError:
 if urllib3:
     urllib3.disable_warnings()
 
+def _golang_parsebool(string):
+        if string in {'1', 't', 'T', 'TRUE', 'true', 'True'}:
+            return True
+        if string in {'0', 'f', 'F', 'FALSE', 'false', 'False'}:
+            return False
+        raise ValueError('could not parse boolean')
 
 class Prometheus(object):
-    def __init__(self, url=None, headers=None, verify_ssl=True):
+    def __init__(self, url=None, headers=None, verify_ssl=None):
         self.url = url or os.getenv('PROMETHEUS_URL', 'http://localhost:9090')
         if headers:
             self.headers = headers
@@ -35,7 +41,18 @@ class Prometheus(object):
             if self.headers:
                 self.headers = json.loads(self.headers)
         self.step_size = 257.142857143
-        self.verify_ssl = os.getenv('PROMETHEUS_VERIFY_SSL', None) or verify_ssl
+
+        if verify_ssl is not None:
+            self.verify_ssl = verify_ssl
+        elif (
+            "PROMETHEUS_VERIFY_SSL" in os.environ
+            and _golang_parsebool(os.environ['PROMETHEUS_VERIFY_SSL']) is False
+        ):
+            self.verify_ssl = False
+        elif "PROMETHEUS_CA_BUNDLE" in os.environ:
+            self.verify_ssl = os.environ['PROMETHEUS_CA_BUNDLE']
+        else:
+            self.verify_ssl = True
 
     def get_step(self, start, end):
         # compute graph point size
