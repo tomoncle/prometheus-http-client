@@ -38,18 +38,18 @@
   * return json data.
   * examples :
     ```python
-    Python 2.7.6 (default, Jun 22 2015, 17:58:13) 
+    Python 2.7.6 (default, Jun 22 2015, 17:58:13)
     [GCC 4.8.2] on linux2
     Type "help", "copyright", "credits" or "license" for more information.
-    >>> 
+    >>>
     >>> from prometheus_http_client import NodeExporter
     >>> node_exporter = NodeExporter()
     >>> node_exporter.node_cpu_rate(filter={'instance': '127.0.0.1:9100','mode':'user','job':'static_nodes'})
     u'{"status":"success","data":{"resultType":"vector","result":[{"metric":{"instance":"127.0.0.1:9100","job":"static_nodes"},"value":[1533779495.799,"70.7333333333338"]}]}}'
-    >>> 
+    >>>
     >>> node_exporter.node_cpu_rate(filter={'instance': '127.0.0.1:9100','job':'static_nodes'})
     u'{"status":"success","data":{"resultType":"vector","result":[{"metric":{"instance":"127.0.0.1:9100","job":"static_nodes"},"value":[1533779522.109,"2.2500000000051443"]}]}}'
-    >>> 
+    >>>
     ```
 
 
@@ -70,20 +70,20 @@ $ cd prometheus-http-client && sudo python setup.py install
 ## Query
 ### Prometheus
   ```python
-   Python 2.7.6 (default, Jun 22 2015, 17:58:13) 
+   Python 2.7.6 (default, Jun 22 2015, 17:58:13)
   [GCC 4.8.2] on linux2
   Type "help", "copyright", "credits" or "license" for more information.
-  >>> 
+  >>>
   >>> from prometheus_http_client import Prometheus
   >>> prometheus = Prometheus()
   >>> prometheus.query(metric='irate(node_cpu{job="static_nodes"}[5m])')
   u'{"status":"success","data":{"resultType":"vector","result":[{"metric":{"cpu":"cpu0","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"idle"},"value":[1533779660.16,"0.9340000000001358"]},{"metric":{"cpu":"cpu0","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"iowait"},"value":[1533779660.16,"0.003333333333334091"]},{"metric":{"cpu":"cpu0","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"irq"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu0","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"nice"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu0","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"softirq"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu0","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"steal"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu0","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"system"},"value":[1533779660.16,"0.016666666666666666"]},{"metric":{"cpu":"cpu0","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"user"},"value":[1533779660.16,"0.025333333333340608"]},{"metric":{"cpu":"cpu1","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"idle"},"value":[1533779660.16,"0.9373333333333297"]},{"metric":{"cpu":"cpu1","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"iowait"},"value":[1533779660.16,"0.025333333333333503"]},{"metric":{"cpu":"cpu1","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"irq"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu1","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"nice"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu1","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"softirq"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu1","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"steal"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu1","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"system"},"value":[1533779660.16,"0.0073333333333304536"]},{"metric":{"cpu":"cpu1","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"user"},"value":[1533779660.16,"0.02333333333332727"]},{"metric":{"cpu":"cpu2","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"idle"},"value":[1533779660.16,"0.9486666666666679"]},{"metric":{"cpu":"cpu2","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"iowait"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu2","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"irq"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu2","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"nice"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu2","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"softirq"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu2","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"steal"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu2","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"system"},"value":[1533779660.16,"0.009333333333332423"]},{"metric":{"cpu":"cpu2","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"user"},"value":[1533779660.16,"0.0319999999999709"]},{"metric":{"cpu":"cpu3","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"idle"},"value":[1533779660.16,"0.9540000000000267"]},{"metric":{"cpu":"cpu3","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"iowait"},"value":[1533779660.16,"0.0006666666666670077"]},{"metric":{"cpu":"cpu3","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"irq"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu3","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"nice"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu3","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"softirq"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu3","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"steal"},"value":[1533779660.16,"0"]},{"metric":{"cpu":"cpu3","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"system"},"value":[1533779660.16,"0.008666666666666363"]},{"metric":{"cpu":"cpu3","device_ID":"static_node","instance":"127.0.0.1:9100","job":"static_nodes","mode":"user"},"value":[1533779660.16,"0.03266666666665211"]}]}}'
-  >>> 
+  >>>
   >>> prometheus.query(metric='sum by (mode, instance,job) (irate(node_cpu{job="static_nodes"}[5m]))')
 u'{"status":"success","data":{"resultType":"vector","result":[{"metric":{"instance":"127.0.0.1:9100","job":"static_nodes","mode":"system"},"value":[1533779830.339,"0.038000000000010914"]},{"metric":{"instance":"127.0.0.1:9100","job":"static_nodes","mode":"user"},"value":[1533779830.339,"0.09133333333332606"]},{"metric":{"instance":"127.0.0.1:9100","job":"static_nodes","mode":"idle"},"value":[1533779830.339,"3.8"]},{"metric":{"instance":"127.0.0.1:9100","job":"static_nodes","mode":"iowait"},"value":[1533779830.339,"0.035333333333332696"]},{"metric":{"instance":"127.0.0.1:9100","job":"static_nodes","mode":"irq"},"value":[1533779830.339,"0"]},{"metric":{"instance":"127.0.0.1:9100","job":"static_nodes","mode":"nice"},"value":[1533779830.339,"0"]},{"metric":{"instance":"127.0.0.1:9100","job":"static_nodes","mode":"softirq"},"value":[1533779830.339,"0.0006666666666666524"]},{"metric":{"instance":"127.0.0.1:9100","job":"static_nodes","mode":"steal"},"value":[1533779830.339,"0"]}]}}'
-  >>> 
+  >>>
   ```
-  
+
 ### Exporter
 > Exporter for common metrics https://prometheus.io/
 

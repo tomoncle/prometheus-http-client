@@ -4,8 +4,8 @@
 # @Author         : Tom.Lee
 # @File           : client.py
 # @Product        : PyCharm
-# @Docs           : 
-# @Source         : 
+# @Docs           :
+# @Source         :
 import json
 import os
 from functools import wraps
@@ -26,7 +26,7 @@ if urllib3:
 
 
 class Prometheus(object):
-    def __init__(self, url=None, headers=None):
+    def __init__(self, url=None, headers=None, verify_ssl=True):
         self.url = url or os.getenv('PROMETHEUS_URL', 'http://localhost:9090')
         if headers:
             self.headers = headers
@@ -35,6 +35,7 @@ class Prometheus(object):
             if self.headers:
                 self.headers = json.loads(self.headers)
         self.step_size = 257.142857143
+        self.verify_ssl = os.getenv('PROMETHEUS_VERIFY_SSL', None) or verify_ssl
 
     def get_step(self, start, end):
         # compute graph point size

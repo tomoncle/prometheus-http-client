@@ -4,7 +4,7 @@
 # @Author         : Tom.Lee
 # @File           : __init__.py.py
 # @Product        : PyCharm
-# @Docs           : 
+# @Docs           :
 # @Source         :
 import time
 
@@ -39,7 +39,8 @@ def _q(self, **kwargs):
     return requests.get(
         url=self.url.rstrip('/') + '/api/v1/query',
         params={'query': kwargs.get('metric'), 'time': kwargs.get('time', time.time())},
-        headers=self.headers).text
+        headers=self.headers,
+        verify=self.verify_ssl).text
 
 
 @check_params(['metric', 'start', 'end'])
@@ -51,11 +52,15 @@ def _qr(self, **kwargs):
             'start': kwargs.get('start'),
             'end': kwargs.get('end'),
             'step': kwargs.get('step', self.get_step(kwargs.get('start'), kwargs.get('end')))},
-        headers=self.headers).text
+        headers=self.headers,
+        verify=self.verify_ssl).text
 
 
 def _t(self):
-    return requests.get(url=self.url.rstrip('/') + '/api/v1/targets', headers=self.headers).text
+    return requests.get(
+        url=self.url.rstrip('/') + '/api/v1/targets',
+        headers=self.headers,
+        verify=self.verify_ssl).text
 
 
 def _s(self, matches):
@@ -66,7 +71,10 @@ def _s(self, matches):
             if i > 0:
                 url += '&'
             url += 'match[]={}'.format(m)
-    return requests.get(url=url, headers=self.headers).text
+    return requests.get(
+        url=url,
+        headers=self.headers,
+        verify=self.verify_ssl).text
 
 def _r(self, **kwargs):
     """ type: alert|record
@@ -76,23 +84,27 @@ def _r(self, **kwargs):
         url=self.url.rstrip('/') + '/api/v1/rules',
         params={
             'type': kwargs.get('type')},
-        headers=self.headers).text
+        headers=self.headers,
+        verify=self.verify_ssl).text
 
 def _a(self):
     return requests.get(
         url=self.url.rstrip('/') + '/api/v1/alerts',
-        headers=self.headers).text
+        headers=self.headers,
+        verify=self.verify_ssl).text
 
 def _am(self):
     return requests.get(
         url=self.url.rstrip('/') + '/api/v1/alertmanagers',
-        headers=self.headers).text
+        headers=self.headers,
+        verify=self.verify_ssl).text
 
 
 def _lv(self, label):
     return requests.get(
         url=self.url.rstrip('/') + '/api/v1/label/{}/values'.format(label),
-        headers=self.headers).text
+        headers=self.headers,
+        verify=self.verify_ssl).text
 
 
 _dic = {
