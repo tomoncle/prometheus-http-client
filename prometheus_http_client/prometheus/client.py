@@ -32,7 +32,8 @@ def _golang_parsebool(string):
         raise ValueError('could not parse boolean')
 
 class Prometheus(object):
-    def __init__(self, url=None, headers=None, verify_ssl=None):
+    def __init__(self, url=None, headers=None, verify_ssl=None,
+                 certs=None):
         self.url = url or os.getenv('PROMETHEUS_URL', 'http://localhost:9090')
         if headers:
             self.headers = headers
@@ -53,6 +54,14 @@ class Prometheus(object):
             self.verify_ssl = os.environ['PROMETHEUS_CA_BUNDLE']
         else:
             self.verify_ssl = True
+
+        self.certs = certs
+
+        if os.getenv('PROMETHEUS_CERT', None) 
+            and os.getenv('PROMETHEUS_KEY', None):
+            self.cert = (os.getenv('PROMETHEUS_CERT', None),
+                os.getenv('PROMETHEUS_KEY', None))
+
 
     def get_step(self, start, end):
         # compute graph point size
