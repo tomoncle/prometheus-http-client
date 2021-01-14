@@ -33,7 +33,7 @@ def _golang_parsebool(string):
 
 class Prometheus(object):
     def __init__(self, url=None, headers=None, verify_ssl=None,
-                 certs=None, timeout=10):
+                 certs=None, timeout=None):
         self.url = url or os.getenv('PROMETHEUS_URL', 'http://localhost:9090')
         if headers:
             self.headers = headers
@@ -42,8 +42,7 @@ class Prometheus(object):
             if self.headers:
                 self.headers = json.loads(self.headers)
 
-        if timeout:
-            self.timeout = timeout
+        self.timeout = float(os.getenv('PROMETHEUS_TIMEOUT', timeout))
 
         self.step_size = 257.142857143
 
@@ -61,8 +60,8 @@ class Prometheus(object):
 
         self.certs = certs
 
-        if os.getenv('PROMETHEUS_CERT', None)
-            and os.getenv('PROMETHEUS_KEY', None):
+        if (os.getenv('PROMETHEUS_CERT', None)
+            and os.getenv('PROMETHEUS_KEY', None)):
             self.certs = (os.getenv('PROMETHEUS_CERT', None),
                 os.getenv('PROMETHEUS_KEY', None))
 

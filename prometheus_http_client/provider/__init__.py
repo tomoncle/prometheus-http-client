@@ -41,7 +41,7 @@ def _q(self, **kwargs):
         params={'query': kwargs.get('metric'), 'time': kwargs.get('time', time.time())},
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs,
+        cert=self.certs,
         timeout=self.timeout).text
 
 
@@ -56,7 +56,7 @@ def _qr(self, **kwargs):
             'step': kwargs.get('step', self.get_step(kwargs.get('start'), kwargs.get('end')))},
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs,
+        cert=self.certs,
         timeout=self.timeout).text
 
 
@@ -65,7 +65,7 @@ def _t(self):
         url=self.url.rstrip('/') + '/api/v1/targets',
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs,
+        cert=self.certs,
         timeout=self.timeout).text
 
 
@@ -81,7 +81,7 @@ def _s(self, matches):
         url=url,
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs,
+        cert=self.certs,
         timeout=self.timeout).text
 
 def _r(self, **kwargs):
@@ -94,7 +94,7 @@ def _r(self, **kwargs):
             'type': kwargs.get('type')},
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs,
+        cert=self.certs,
         timeout=self.timeout).text
 
 def _a(self):
@@ -102,7 +102,7 @@ def _a(self):
         url=self.url.rstrip('/') + '/api/v1/alerts',
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs,
+        cert=self.certs,
         timeout=self.timeout).text
 
 def _am(self):
@@ -110,7 +110,7 @@ def _am(self):
         url=self.url.rstrip('/') + '/api/v1/alertmanagers',
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs,
+        cert=self.certs,
         timeout=self.timeout).text
 
 
@@ -119,7 +119,7 @@ def _lv(self, label):
         url=self.url.rstrip('/') + '/api/v1/label/{}/values'.format(label),
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs,
+        cert=self.certs,
         timeout=self.timeout).text
 
 
