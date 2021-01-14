@@ -57,8 +57,8 @@ class Prometheus(object):
 
         self.certs = certs
 
-        if os.getenv('PROMETHEUS_CERT', None) 
-            and os.getenv('PROMETHEUS_KEY', None):
+        if (os.getenv('PROMETHEUS_CERT', None)
+            and os.getenv('PROMETHEUS_KEY', None)):
             self.certs = (os.getenv('PROMETHEUS_CERT', None),
                 os.getenv('PROMETHEUS_KEY', None))
 

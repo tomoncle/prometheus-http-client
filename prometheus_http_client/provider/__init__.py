@@ -41,7 +41,7 @@ def _q(self, **kwargs):
         params={'query': kwargs.get('metric'), 'time': kwargs.get('time', time.time())},
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs).text
+        cert=self.certs).text
 
 
 @check_params(['metric', 'start', 'end'])
@@ -55,7 +55,7 @@ def _qr(self, **kwargs):
             'step': kwargs.get('step', self.get_step(kwargs.get('start'), kwargs.get('end')))},
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs).text
+        cert=self.certs).text
 
 
 def _t(self):
@@ -63,7 +63,7 @@ def _t(self):
         url=self.url.rstrip('/') + '/api/v1/targets',
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs).text
+        cert=self.certs).text
 
 
 def _s(self, matches):
@@ -78,7 +78,7 @@ def _s(self, matches):
         url=url,
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs).text
+        cert=self.certs).text
 
 def _r(self, **kwargs):
     """ type: alert|record
@@ -90,21 +90,21 @@ def _r(self, **kwargs):
             'type': kwargs.get('type')},
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs).text
+        cert=self.certs).text
 
 def _a(self):
     return requests.get(
         url=self.url.rstrip('/') + '/api/v1/alerts',
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs).text
+        cert=self.certs).text
 
 def _am(self):
     return requests.get(
         url=self.url.rstrip('/') + '/api/v1/alertmanagers',
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs).text
+        cert=self.certs).text
 
 
 def _lv(self, label):
@@ -112,7 +112,7 @@ def _lv(self, label):
         url=self.url.rstrip('/') + '/api/v1/label/{}/values'.format(label),
         headers=self.headers,
         verify=self.verify_ssl,
-        certs=self.certs).text
+        cert=self.certs).text
 
 
 _dic = {
