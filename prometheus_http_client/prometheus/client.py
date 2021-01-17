@@ -33,7 +33,7 @@ def _golang_parsebool(string):
 
 class Prometheus(object):
     def __init__(self, url=None, headers=None, verify_ssl=None,
-                 certs=None):
+                 certs=None, timeout=None):
         self.url = url or os.getenv('PROMETHEUS_URL', 'http://localhost:9090')
         if headers:
             self.headers = headers
@@ -41,6 +41,9 @@ class Prometheus(object):
             self.headers = os.getenv('PROMETHEUS_HEAD', None)
             if self.headers:
                 self.headers = json.loads(self.headers)
+
+        self.timeout = float(os.getenv('PROMETHEUS_TIMEOUT', timeout))
+
         self.step_size = 257.142857143
 
         if verify_ssl is not None:
@@ -57,8 +60,8 @@ class Prometheus(object):
 
         self.certs = certs
 
-        if os.getenv('PROMETHEUS_CERT', None) 
-            and os.getenv('PROMETHEUS_KEY', None):
+        if (os.getenv('PROMETHEUS_CERT', None)
+            and os.getenv('PROMETHEUS_KEY', None)):
             self.certs = (os.getenv('PROMETHEUS_CERT', None),
                 os.getenv('PROMETHEUS_KEY', None))
 
@@ -155,7 +158,7 @@ def _build_params(dic):
         # if the value is a tuple then the caller likes to give also the operator like !=, =~ and so on.
         # else the caller just likes label equals value filter
         if isinstance(v, tuple):
-            s += '{}{}"{}", '.format(k,v[0],v[1])
+            s += '{}{}"{}", '.format(k, v[0], v[1])
         else:
             s += '{}="{}", '.format(k, v)
     # remove last comma
