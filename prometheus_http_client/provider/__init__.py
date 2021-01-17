@@ -84,6 +84,7 @@ def _s(self, matches):
         cert=self.certs,
         timeout=self.timeout).text
 
+
 def _r(self, **kwargs):
     """ type: alert|record
         no type defaults to alert
@@ -97,6 +98,7 @@ def _r(self, **kwargs):
         cert=self.certs,
         timeout=self.timeout).text
 
+
 def _a(self):
     return requests.get(
         url=self.url.rstrip('/') + '/api/v1/alerts',
@@ -105,6 +107,7 @@ def _a(self):
         cert=self.certs,
         timeout=self.timeout).text
 
+  
 def _am(self):
     return requests.get(
         url=self.url.rstrip('/') + '/api/v1/alertmanagers',
